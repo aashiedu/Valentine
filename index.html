@@ -76,17 +76,19 @@ section:hover { transform: translateY(-5px); }
 <h2>Our Playlist</h2>
 <p>Listen to our favorite song: <strong>A Thousand Years – Christina Perri</strong></p>
 <div class="spotify-embed">
-<iframe src="https://open.spotify.com/track/6z5Yh7kOKeLjqIsNdokIpU?si=wkgy727hQLKRwMVzvDZvUA" width="300" height="380" frameborder="0" allowtransparency="true" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/6z5Yh7kOKeLjqIsNdokIpU?utm_source=generator" width="300" height="80" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
 </div>
 </section>
 
 <section id="gallery">
 <h2>Our Pictures</h2>
 <div class="gallery">
-<img src="IMG_1341.PNG" alt="Us 1">
-<img src="IMG_1342.PNG" alt="Us 2">
-<img src="326154C6-B382-446E-95A6-B46722EF3009.PNG" alt="Us 3">
-<img src="IMG-20240125-WA0015_1.jpg" alt="Us 4">
+<img src="https://raw.githubusercontent.com/aashiedu/Valentine/refs/heads/main/IMG_1340.jpeg" alt="Us 1">
+<img src="https://raw.githubusercontent.com/aashiedu/Valentine/refs/heads/main/IMG_1349.jpeg" alt="Us 2">
+<img src="https://raw.githubusercontent.com/aashiedu/Valentine/refs/heads/main/IMG_1351.jpeg" alt="Us 3">
+<img src="https://raw.githubusercontent.com/aashiedu/Valentine/refs/heads/main/IMG_6590.jpeg" alt="Us 4">
+<img src="https://raw.githubusercontent.com/aashiedu/Valentine/refs/heads/main/IMG_7397.jpeg" alt="Us 5">
+<img src="https://raw.githubusercontent.com/aashiedu/Valentine/refs/heads/main/IMG_7699.jpeg" alt="Us 6">
 </div>
 </section>
 
@@ -105,7 +107,7 @@ function createHeart() {
 }
 setInterval(createHeart,1000);
 
-// Relationship Timer
+// Timer
 function updateTimer(){
 const startDate=new Date('2023-07-28T00:00:00');
 const now=new Date();
@@ -116,12 +118,12 @@ const days=Math.floor((diff%(1000*60*60*24*30.44))/(1000*60*60*24));
 const hours=Math.floor((diff%(1000*60*60*24))/(1000*60*60));
 const minutes=Math.floor((diff%(1000*60*60))/(1000*60));
 const seconds=Math.floor((diff%(1000*60))/1000);
-document.getElementById('timer').textContent=`${years} years, ${months} months, ${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
+document.getElementById('timer').textContent=`${years}y ${months}m ${days}d ${hours}h ${minutes}m ${seconds}s`;
 setTimeout(updateTimer,1000);
 }
 updateTimer();
 
-// Memory Card Game
+// Memory Game
 const emojis=['💕','😘','🌹','❤️','💋','🌸','💖','😍'];
 const cards=[...emojis,...emojis].sort(()=>Math.random()-0.5);
 let flippedCards=[], matchedPairs=0;
@@ -131,30 +133,27 @@ cards.forEach((emoji,index)=>{
 const card=document.createElement('div');
 card.className='card';
 card.dataset.emoji=emoji;
-card.dataset.index=index;
 card.addEventListener('click',flipCard);
 grid.appendChild(card);
 });
 function flipCard(){
-if(flippedCards.length<2&&!this.classList.contains('flipped')){
+if(flippedCards.length<2 && !this.classList.contains('flipped')){
 this.classList.add('flipped');
 this.textContent=this.dataset.emoji;
 flippedCards.push(this);
-if(flippedCards.length===2)setTimeout(checkMatch,500);
+if(flippedCards.length===2) setTimeout(checkMatch,500);
 }}
 function checkMatch(){
 if(flippedCards[0].dataset.emoji===flippedCards[1].dataset.emoji){
 matchedPairs++;
-status.textContent=`Great match! Pairs found: ${matchedPairs}`;
-if(matchedPairs===emojis.length)status.textContent='You won! All pairs matched! 💕';
+status.textContent=`Pairs: ${matchedPairs}`;
 } else {
-flippedCards.forEach(card=>{card.classList.remove('flipped'); card.textContent='';});
-status.textContent='No match, try again!';
+flippedCards.forEach(c=>{c.classList.remove('flipped'); c.textContent='';});
 }
 flippedCards=[];
 }
 
-// Falling Hearts Game - capped at 100 & fast
+// Hearts Game
 let score=0;
 const gameArea=document.getElementById('hearts-game');
 const scoreDisplay=document.getElementById('score');
@@ -174,12 +173,9 @@ currentHearts--;
 });
 gameArea.appendChild(heart);
 currentHearts++;
-setTimeout(()=>{ if(heart.parentElement){heart.remove(); currentHearts--; } },4000);
+setTimeout(()=>{if(heart.parentElement){heart.remove(); currentHearts--; }},4000);
 }
 setInterval(createFallingHeart,500);
-
-// Optional sound
-function playSound(file){ try{ const audio=new Audio(file); audio.volume=0.3; audio.play(); }catch(e){} }
 </script>
 </body>
 </html>
